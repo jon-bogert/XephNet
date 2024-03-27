@@ -152,17 +152,7 @@ project "TestClient"
 		    "winmm"
 		}
 		
-	filter "system:linux"
-		systemversion "latest"
-		libdirs "XephNet/lib/linux"
-		
-	filter "system:macos"
-		systemversion "latest"
-		libdirs "XephNet/lib/macos"
-
-	filter "configurations:Debug"
-		defines { "_DEBUG", "_CONSOLE" }
-		symbols "On"
+	filter {"system:windows", "configurations:Debug"}
 		links
 		{
 			"sfml-system-s-d",
@@ -171,9 +161,7 @@ project "TestClient"
 			"sfml-graphics-s-d",
 		}
 		
-	filter "configurations:Release"
-		defines { "NDEBUG", "NCONSOLE" }
-		optimize "On"
+	filter {"system:windows", "configurations:Release"}
 		links
 		{
 			"sfml-system-s",
@@ -181,3 +169,28 @@ project "TestClient"
 			"sfml-window-s",
 			"sfml-graphics-s"
 		}
+
+	filter "system:linux"
+		systemversion "latest"
+		libdirs "XephNet/lib/linux"
+		links
+		{
+		    "sfml-system-s",
+			"sfml-network-s",
+			"sfml-window-s",
+			"sfml-graphics-s"
+		}
+		
+	filter "system:macos"
+		systemversion "latest"
+		libdirs "XephNet/lib/macos"
+		
+	filter "configurations:Debug"
+		defines { "_DEBUG", "_CONSOLE" }
+		symbols "On"
+		
+	filter "configurations:Release"
+		defines { "NDEBUG", "NCONSOLE" }
+		optimize "On"
+
+	
